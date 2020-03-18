@@ -14,15 +14,22 @@ export default class List extends Component {
   // Fetch the list on first mount
   componentDidMount() {
     this.getList();
+    this.getstaticStage();
   }
 
   // Retrieves the list of items from the Express app
   getList = () => {
-    fetch('/api/createListItem', { method: 'POST' })
+    fetch('/api/getList')
     .then(response => response.json())
     .then(list => this.setState({ list }))
   }
-
+  
+  getstaticStage = () => {
+    const payload = { name: 'item', value: 'item number 2'}
+    fetch('/api/createListItem', { method: 'POST', body: payload })
+    .then(response => response.json())
+    .then(list => this.setState({ list }))
+  }
   ////render 
   render() {
     const { list } = this.state;
